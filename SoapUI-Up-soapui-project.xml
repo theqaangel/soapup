@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="03d4b572-8a00-47df-b059-adf35ec50a19" activeEnvironment="Default" name="SoapUI-Up" resourceRoot="" soapui-version="5.1.3" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:testSuite id="e515e7c6-76b6-42a6-8b98-6057a98df14c" name="GlobalProperty"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="f5fe95cf-67c3-4c7f-aeab-77eb3848e461" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Properties" searchProperties="true"><con:settings/><con:testStep type="httprequest" name="HTTP Request" id="1bc4ac5e-3b2a-4d32-9549-73bf9d45e97f"><con:settings/><con:config method="GET" xsi:type="con:HttpRequest" id="e80942af-a19e-4faf-955b-24634493e328" name="HTTP Request" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://google.com</con:endpoint><con:request/><con:assertion type="GroovyScriptAssertion" id="7c89adc9-426c-4d89-8ba7-54426ff76301" name="Script Assertion"><con:configuration><scriptText>log.info context.myproperty
+assert context.myproperty == "SoapUI-Up", "Wrong property value"</scriptText></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script" id="c174eb4c-53b3-4e2e-adf9-93982bd1a2ef"><con:settings/><con:config><script>assert context.myproperty == "SoapUI-Up", "Wrong property value"</script></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite id="0e8d5b85-c7a3-4c4d-956b-b89cbd95fd14" name="GlobalObject"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="3d80abd1-09b1-4783-8a80-8a380a31e65f" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Objects" searchProperties="true"><con:settings/><con:testStep type="groovy" name="Groovy Script" id="c573c3cd-aad6-47ab-a692-8d67a7d8045a"><con:settings/><con:config><script>assert context.lib.sayHello("SoapUI-Up") == "Hello SoapUI-Up!"
+</script></con:config></con:testStep><con:testStep type="httprequest" name="HTTP Request" id="92b121ec-790e-4435-b4b8-e80faec98a81"><con:settings/><con:config method="GET" xsi:type="con:HttpRequest" id="6625f0c8-7d6d-4772-a7f1-c22c8859ab3a" name="HTTP Request" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://google.com</con:endpoint><con:request/><con:assertion type="GroovyScriptAssertion" id="53b2c795-4397-487d-9bdc-131a6e4457b5" name="Script Assertion"><con:configuration><scriptText>assert context.lib.sayHello("SoapUI-Up") == "Hello SoapUI-Up!"</scriptText></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite id="7e132ed4-e2b2-4b0d-b06f-653bf1426f60" name="Assert"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="16180e93-7efb-4277-974c-92d9d83decd8" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="AssertResponseCode" searchProperties="true"><con:settings/><con:testStep type="httprequest" name="HTTP Request" id="9e635ca8-8156-4b07-a2ee-da9dc8a2afd8"><con:settings/><con:config method="GET" xsi:type="con:HttpRequest" id="72a114c5-7565-45b4-aee5-b042492ada3c" name="HTTP Request" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://google.com</con:endpoint><con:request/><con:assertion type="GroovyScriptAssertion" id="d6c99ad8-06d6-48be-b935-8ec781d49ffd" name="Script Assertion"><con:configuration><scriptText>context.lib.assertResponseCode(log, context, 200)</scriptText></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:afterLoadScript/><con:wssContainer/><con:oAuth2ProfileContainer/><con:beforeRunScript>//You can add String property in the global context
+context.myproperty = "SoapUI-Up"
+
+
+class Library{
+	
+	def sayHello(name)
+	{
+	   return "Hello " + name + "!";
+	}
+
+    	   
+	def assertResponseCode(log, context, expectedResponseCode)
+	{
+		def responseHeaders = context.httpResponse.getResponseHeaders()
+		def responseCode = responseHeaders.get("#status#", "Response Code can't be determined")
+		log.info(responseCode)
+		assert responseCode =~ expectedResponseCode, "Response code not match"
+	}
+}
+if(context.lib == null)
+{
+	context.lib = new Library()
+}</con:beforeRunScript><con:sensitiveInformation/></con:soapui-project>
